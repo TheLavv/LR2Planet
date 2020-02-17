@@ -1,5 +1,7 @@
 #include "Headers.h"
 
+//описание конструкторов и деструкторов
+
 Planet::Planet()
 {
 	name_size = 1;
@@ -9,19 +11,7 @@ Planet::Planet()
 	satellites = 0;
 }
 
-Planet* Planet::reSize(Planet* object, int& object_count, int resize_count)
-{
-	object_count += resize_count;
-	Planet* temp = new Planet[object_count];
-	for (int i = 0; i < (resize_count > 0 ? object_count - resize_count : object_count); i++)
-	{
-		temp[i] = object[i];
-	}
-	delete[] object;
-	object = temp;
-	temp = nullptr;
-	return object;
-}
+//основные функции меню
 
 Planet* Planet::readDB(const char* fileName, Planet* object, int& object_count)
 {
@@ -41,6 +31,38 @@ Planet* Planet::readDB(const char* fileName, Planet* object, int& object_count)
 	}
 	object = reSize(object, object_count, -1);
 	fin.close();
+	return object;
+
+}
+
+void Planet::writeDB(const char* fileName, Planet* object, const int& object_count)
+{
+	std::ofstream fout(fileName, std::ios_base::trunc);
+	fout << std::setw(13) << std::left << "Название";
+	fout << std::setw(13) << std::left << "Диаметр";
+	fout << std::setw(13) << std::left << "Жизнь";
+	fout << std::setw(13) << std::left <<"Спутники";
+	fout << "\n";
+	for (int i = 0; i < object_count; i++)
+	{
+		fout << object[i] << '\n';
+	}
+	fout.close();
+}
+
+//побочные методы класса
+
+Planet* Planet::reSize(Planet* object, int& object_count, int resize_count)
+{
+	object_count += resize_count;
+	Planet* temp = new Planet[object_count];
+	for (int i = 0; i < (resize_count > 0 ? object_count - resize_count : object_count); i++)
+	{
+		temp[i] = object[i];
+	}
+	delete[] object;
+	object = temp;
+	temp = nullptr;
 	return object;
 }
 

@@ -1,11 +1,17 @@
 #include "Headers.h"
 
+//перегрузки операторов
+
 std::ifstream& operator>>(std::ifstream& fin, Planet& object)
 {
 	unsigned char sym;
 	bool flag = false;
 	int field = 0;
 	fin >> std::noskipws >> sym;
+	while (sym == ' ' || sym == '\t')
+	{
+		fin >> std::noskipws >> sym;
+	}
 	while (sym != '\n' && !fin.eof() && sym != '\r')
 	{
 		if (sym != ' ' && sym != '\t')
@@ -60,6 +66,15 @@ std::ifstream& operator>>(std::ifstream& fin, Planet& object)
 	if(sym == '\r')
 		fin >> sym;
 	return fin;
+}
+
+std::ofstream& operator<<(std::ofstream& fout, const Planet& object)
+{
+	fout << std::setw(13) << std::left << object.name;
+	fout << std::setw(13) << std::left << object.diameter;
+	fout << std::setw(13) << std::left << object.life;
+	fout << std::setw(13) << std::left << object.satellites;
+	return fout;
 }
 
 Planet& Planet::operator=(const Planet& object)

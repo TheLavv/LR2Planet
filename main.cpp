@@ -14,9 +14,9 @@ int main()
 			system("cls");
 			mainMenu();
 			std::cin >> mode;
-			if (mode < 1 || mode > 5)
+			if (mode < 1 || mode > 6)
 			{
-				std::cout << "¬ведите номер существующего действи€!(1-5).\n";
+				std::cout << "¬ведите номер существующего действи€!(1-6).\n";
 				system("pause");
 			}
 			else {
@@ -27,14 +27,26 @@ int main()
 		{
 		case 1: 
 			object = Planet::readDB(fileName, object, object_count);
+			system("cls");
+			std::cout << "Ѕаза данных успешно считана из файла.\n\n";
+			system("pause");
 			break;
 		case 2:
+			Planet::writeDB(fileName, object, object_count);
+			system("cls");
+			std::cout << "Ѕаза данных успешно записана в файл.\n\n";
+			system("pause");
 			break;
 		case 3:
 			break;
 		case 4:
 			break;
 		case 5:
+			system("cls");
+			Planet::printDB(object, object_count);
+			break;
+		case 6:
+			return 0;
 			break;
 		}
 
