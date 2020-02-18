@@ -40,10 +40,13 @@ int main()
 		case 3:
 			break;
 		case 4:
+			Planet::editDB(object, object_count);
 			break;
 		case 5:
 			system("cls");
 			Planet::printDB(object, object_count);
+			std::cout << "\n\n";
+			system("pause");
 			break;
 		case 6:
 			return 0;

@@ -68,6 +68,21 @@ std::ifstream& operator>>(std::ifstream& fin, Planet& object)
 	return fin;
 }
 
+std::istream& operator>>(std::istream& in, Planet& object)
+{
+	system("cls");
+	std::cout << "Введите следующие поля: \n\n" << "Название: ";
+	char* temp = new char[30];
+	std::cin >> temp;
+	object.name_size = length(temp) + 1;
+	object.name = strcpy(object.name, temp);
+	std::cout << "\n" << "Диаметр: ";
+	while (true)
+	{
+		std::cin >> temp;
+	}
+}
+
 std::ofstream& operator<<(std::ofstream& fout, const Planet& object)
 {
 	fout << std::setw(13) << std::left << object.name;
@@ -75,6 +90,15 @@ std::ofstream& operator<<(std::ofstream& fout, const Planet& object)
 	fout << std::setw(13) << std::left << object.life;
 	fout << std::setw(13) << std::left << object.satellites;
 	return fout;
+}
+
+std::ostream& operator<<(std::ostream& out, const Planet& object)
+{
+	out << std::setw(9) << std::left << object.name;
+	out << std::setw(9) << std::left << object.diameter;
+	out << std::setw(9) << std::left << object.life;
+	out << std::setw(9) << std::left << object.satellites;
+	return out;
 }
 
 Planet& Planet::operator=(const Planet& object)

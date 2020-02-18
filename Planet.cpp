@@ -50,6 +50,63 @@ void Planet::writeDB(const char* fileName, Planet* object, const int& object_cou
 	fout.close();
 }
 
+void Planet::printDB(Planet* object, const int& object_count)
+{
+	system("cls");
+	std::cout << std::setw(9) << std::left << "Название";
+	std::cout << std::setw(9) << std::left << "Диаметр";
+	std::cout << std::setw(9) << std::left << "Жизнь";
+	std::cout << std::setw(9) << std::left << "Спутники";
+	std::cout << "\n";
+	for (int i = 0; i < object_count; i++)
+	{
+		std::cout << object[i] << "\n";
+	}
+}
+
+Planet* Planet::editDB(Planet* object, int& object_count)
+{
+	int mode;
+	while (true)
+	{
+		while (true)
+		{
+			system("cls");
+			editMenu();
+			std::cin >> mode;
+			if (mode < 1 || mode > 4)
+			{
+				std::cout << "Введите номер существующего действия!(1-4).\n";
+				system("pause");
+			}
+			else {
+				break;
+			}
+		}
+		switch (mode)
+		{
+		case 1:
+			addToDB(object, object_count);
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			return object;
+			break;
+		}
+	}
+}
+
+//методы меню редактирования
+
+Planet* Planet::addToDB(Planet* object, int& object_count)
+{
+	reSize(object, object_count, 1);
+
+}
+
 //побочные методы класса
 
 Planet* Planet::reSize(Planet* object, int& object_count, int resize_count)
@@ -68,7 +125,7 @@ Planet* Planet::reSize(Planet* object, int& object_count, int resize_count)
 
 void Planet::setName(char* new_name) 
 {
-	strcpy(name, new_name);
+	name = strcpy(name, new_name);
 }
 
 void Planet::setDiameter(int new_diameter)
