@@ -71,16 +71,79 @@ std::ifstream& operator>>(std::ifstream& fin, Planet& object)
 std::istream& operator>>(std::istream& in, Planet& object)
 {
 	system("cls");
-	std::cout << "Введите следующие поля: \n\n" << "Название: ";
+	std::cout << "Введите следующие поля: \n\n" << "Название планеты: ";
 	char* temp = new char[30];
 	std::cin >> temp;
 	object.name_size = length(temp) + 1;
-	object.name = strcpy(object.name, temp);
-	std::cout << "\n" << "Диаметр: ";
-	while (true)
+	object.name = new char[object.name_size];
+	for (int i = 0; i < object.name_size; i++)
 	{
-		std::cin >> temp;
+		object.name[i] = temp[i];
 	}
+
+	bool flag = false;
+	int new_diameter = 0;
+	while (!flag)
+	{
+		flag = true;
+		std::cout << "\nДиаметр планеты(введите число): ";
+		std::cin >> temp;
+		for (int i = 0; i < length(temp); i++)
+		{
+			if (temp[i] >= '0' && temp[i] <= '9')
+			{
+				new_diameter *= 10;
+				new_diameter += temp[i] - '0';
+			}
+			else
+			{
+				flag = false;
+				std::cout << "\n\nВведено некорректное значение поля! Пожалуйста, введите число.\n";
+				break;
+			}
+		}
+	}
+	object.diameter = new_diameter;
+
+	flag = false;
+	while (!flag)
+	{
+		flag = true;
+		std::cout << "\nНаличие жизни(введите 1 или 0 - есть/нет соответственно): ";
+		std::cin >> temp;
+		if (!(length(temp) == 1 && (temp[0] == '1' || temp[0] == '0')))
+		{
+			flag = false;
+			std::cout << "\n\nВведено некорректное значение поля! Пожалуйста введите 1 или 0.\n";
+		}
+	}
+	object.life = temp[0] - '0';
+
+	flag = false;
+	int new_sat = 0;
+	while (!flag)
+	{
+		flag = true;
+		std::cout << "\nКоличество спутников(введите число): ";
+		std::cin >> temp;
+		for (int i = 0; i < length(temp); i++)
+		{
+			if (temp[i] >= '0' && temp[i] <= '9')
+			{
+				new_sat *= 10;
+				new_sat += temp[i] - '0';
+			}
+			else
+			{
+				flag = false;
+				std::cout << "\n\nВведено некорректное значение поля! Пожалуйста, введите число.\n";
+				break;
+			}
+		}
+	}
+	object.satellites = new_sat;
+	delete[] temp;
+	return in;
 }
 
 std::ofstream& operator<<(std::ofstream& fout, const Planet& object)
@@ -94,10 +157,10 @@ std::ofstream& operator<<(std::ofstream& fout, const Planet& object)
 
 std::ostream& operator<<(std::ostream& out, const Planet& object)
 {
-	out << std::setw(9) << std::left << object.name;
-	out << std::setw(9) << std::left << object.diameter;
-	out << std::setw(9) << std::left << object.life;
-	out << std::setw(9) << std::left << object.satellites;
+	out << std::setw(13) << std::left << object.name;
+	out << std::setw(13) << std::left << object.diameter;
+	out << std::setw(13) << std::left << object.life;
+	out << std::setw(13) << std::left << object.satellites;
 	return out;
 }
 

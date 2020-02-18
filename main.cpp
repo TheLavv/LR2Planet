@@ -40,7 +40,10 @@ int main()
 		case 3:
 			break;
 		case 4:
-			Planet::editDB(object, object_count);
+			object = Planet::editDB(object, object_count);
+			system("cls");
+			std::cout << "База данных успешно изменена.\n\n";
+			system("pause");
 			break;
 		case 5:
 			system("cls");

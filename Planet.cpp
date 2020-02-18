@@ -53,13 +53,16 @@ void Planet::writeDB(const char* fileName, Planet* object, const int& object_cou
 void Planet::printDB(Planet* object, const int& object_count)
 {
 	system("cls");
-	std::cout << std::setw(9) << std::left << "Название";
-	std::cout << std::setw(9) << std::left << "Диаметр";
-	std::cout << std::setw(9) << std::left << "Жизнь";
-	std::cout << std::setw(9) << std::left << "Спутники";
+	std::cout << std::left << std::setw(6) << "ID";
+	std::cout << std::setw(13) << std::left << "Название";
+	std::cout << std::setw(13) << std::left << "Диаметр";
+	std::cout << std::setw(13) << std::left << "Жизнь";
+	std::cout << std::setw(13) << std::left << "Спутники";
 	std::cout << "\n";
 	for (int i = 0; i < object_count; i++)
 	{
+		std::cout << std::setw(6) << i + 1;
+
 		std::cout << object[i] << "\n";
 	}
 }
@@ -86,7 +89,7 @@ Planet* Planet::editDB(Planet* object, int& object_count)
 		switch (mode)
 		{
 		case 1:
-			addToDB(object, object_count);
+			object = Planet::addToDB(object, object_count);
 			break;
 		case 2:
 			break;
@@ -103,8 +106,9 @@ Planet* Planet::editDB(Planet* object, int& object_count)
 
 Planet* Planet::addToDB(Planet* object, int& object_count)
 {
-	reSize(object, object_count, 1);
-
+	object = reSize(object, object_count, 1);
+	std::cin >> object[object_count - 1];
+	return object;
 }
 
 //побочные методы класса
@@ -126,6 +130,7 @@ Planet* Planet::reSize(Planet* object, int& object_count, int resize_count)
 void Planet::setName(char* new_name) 
 {
 	name = strcpy(name, new_name);
+	delete[] new_name;
 }
 
 void Planet::setDiameter(int new_diameter)
