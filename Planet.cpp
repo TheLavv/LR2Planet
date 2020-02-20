@@ -127,11 +127,15 @@ Planet* Planet::deleteFromDB(Planet* object, int& object_count)
 			if (num > 0 && num <= object_count)
 			{
 				Planet* temp = new Planet[object_count - 1];
-				for (int i = 0; i < object_count; i++)
+				for (int i = 0, j = 0; i < object_count; i++, j++)
 				{
 					if (i + 1 != num)
 					{
-						temp[i] = object[i];
+						temp[j] = object[i];
+					}
+					else
+					{
+						j--;
 					}
 				}
 				delete[] object;
