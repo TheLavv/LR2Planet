@@ -82,16 +82,18 @@ Planet* Planet::editDB(Planet* object, int& object_count)
 				std::cout << "Введите номер существующего действия!(1-4).\n";
 				system("pause");
 			}
-			else {
+			else 
+			{
 				break;
 			}
 		}
 		switch (mode)
 		{
 		case 1:
-			object = Planet::addToDB(object, object_count);
+			object = addToDB(object, object_count);
 			break;
 		case 2:
+			object = deleteFromDB(object, object_count);
 			break;
 		case 3:
 			break;
@@ -108,6 +110,50 @@ Planet* Planet::addToDB(Planet* object, int& object_count)
 {
 	object = reSize(object, object_count, 1);
 	std::cin >> object[object_count - 1];
+	return object;
+}
+
+Planet* Planet::deleteFromDB(Planet* object, int& object_count)
+{
+	if (object_count > 0)
+	{
+		int num;
+		while (true)
+		{
+			system("cls");
+			printDB(object, object_count);
+			std::cout << "\n\nВведите ID строки, которую необходимо удалить(1-" << object_count << "): ";
+			std::cin >> num;
+			if (num > 0 && num <= object_count)
+			{
+				Planet* temp = new Planet[object_count - 1];
+				for (int i = 0; i < object_count; i++)
+				{
+					if (i + 1 != num)
+					{
+						temp[i] = object[i];
+					}
+				}
+				delete[] object;
+				object = temp;
+				temp = nullptr;
+				object_count--;
+				break;
+			}
+			else
+			{
+				std::cout << "\nВведен ID несуществующей строки. Повторите ввод!";
+				system("pause");
+			}
+
+		}
+	}
+	else
+	{
+		system("cls");
+		std::cout << "Количество объектов БД = 0!\n";
+		system("pause");
+	}
 	return object;
 }
 
