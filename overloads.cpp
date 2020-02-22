@@ -70,6 +70,8 @@ std::ifstream& operator>>(std::ifstream& fin, Planet& object)
 
 std::istream& operator>>(std::istream& in, Planet& object)
 {
+	if (object.name != nullptr)
+		delete[] object.name;
 	system("cls");
 	std::cout << "Введите следующие поля: \n\n" << "Название планеты: ";
 	char* temp = new char[30];
@@ -162,6 +164,11 @@ std::ostream& operator<<(std::ostream& out, const Planet& object)
 	out << std::setw(13) << std::left << object.life;
 	out << std::setw(13) << std::left << object.satellites;
 	return out;
+}
+
+bool Planet::operator<(const Planet& object)
+{
+	return (strcmp(this->name, object.name) > 0);
 }
 
 Planet& Planet::operator=(const Planet& object)

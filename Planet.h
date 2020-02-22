@@ -14,10 +14,13 @@ private:
 	static void editObject(Planet* object, const int& object_count);
 public:
 	Planet();
+	Planet(const Planet& object);
+	~Planet();
 	static Planet* readDB(const char* fileName, Planet* object, int& object_count);
 	static void writeDB(const char* fileName, Planet* object, const int& object_count);
 	static void printDB(Planet* object, const int& object_count);
 	static Planet* editDB(Planet* object, int& object_count);
+	static void sortDB(Planet* object, const int& object_count);
 	void setName(char* new_name);
 	void setDiameter(int new_diameter);
 	void setLife(bool new_life);
@@ -29,5 +32,6 @@ public:
 	friend std::ostream& operator<<(std::ostream& out, const Planet& object);
 	friend std::istream& operator>>(std::istream& in, Planet& object);
 	Planet& operator=(const Planet& object);
+	bool operator<(const Planet& object);
 };
 

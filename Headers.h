@@ -3,6 +3,7 @@
 #include "Planet.h"
 #include <iomanip>
 #include <fstream>
+#include "string.h"
 
 void mainMenu();
 void editMenu();

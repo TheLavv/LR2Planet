@@ -11,6 +11,17 @@ Planet::Planet()
 	satellites = 0;
 }
 
+Planet::~Planet()
+{
+	if(name != nullptr)
+		delete[] name;
+}
+
+Planet::Planet(const Planet& object)
+{
+	*this = object;
+}
+
 //основные функции меню
 
 Planet* Planet::readDB(const char* fileName, Planet* object, int& object_count)
@@ -96,10 +107,28 @@ Planet* Planet::editDB(Planet* object, int& object_count)
 			object = deleteFromDB(object, object_count);
 			break;
 		case 3:
+			editObject(object, object_count);
 			break;
 		case 4:
 			return object;
 			break;
+		}
+	}
+}
+
+void Planet::sortDB(Planet* object, const int& object_count)
+{
+	for (int i = 0; i < object_count - 1; i++)
+	{
+		for (int j = i + 1; j < object_count; j++)
+		{
+			if (object[i] < object[j])
+			{
+				Planet temp;
+				temp = object[i];
+				object[i] = object[j];
+				object[j] = temp;
+			}
 		}
 	}
 }
@@ -159,6 +188,37 @@ Planet* Planet::deleteFromDB(Planet* object, int& object_count)
 		system("pause");
 	}
 	return object;
+}
+
+void Planet::editObject(Planet* object, const int& object_count)
+{
+	if (object_count > 0)
+	{
+		int num;
+		while (true)
+		{
+			system("cls");
+			printDB(object, object_count);
+			std::cout << "\n\nВведите ID строки, которую необходимо изменить(1-" << object_count << "): ";
+			std::cin >> num;
+			if (num > 0 && num <= object_count)
+			{
+				std::cin >> object[num - 1];
+				break;
+			}
+			else
+			{
+				std::cout << "\nВведен ID несуществующей строки. Повторите ввод!";
+				system("pause");
+			}
+		}
+	}
+	else
+	{
+		system("cls");
+		std::cout << "Количество объектов БД = 0!\n";
+		system("pause");
+	}
 }
 
 //побочные методы класса

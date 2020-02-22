@@ -6,7 +6,7 @@ int main()
 	int object_count = 0;
 	Planet* object = nullptr;
 	const char* fileName = "DataBase.txt";
-	while (true)
+	while (true)	
 	{
 		int mode;
 		while (true)
@@ -38,6 +38,10 @@ int main()
 			system("pause");
 			break;
 		case 3:
+			Planet::sortDB(object, object_count);
+			system("cls");
+			std::cout << "База данных успешно отсортирована.\n\n";
+			system("pause");
 			break;
 		case 4:
 			object = Planet::editDB(object, object_count);
